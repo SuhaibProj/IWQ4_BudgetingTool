@@ -1,16 +1,18 @@
 package com.budget.budgettingapp.model;
 
-import com.budget.budgettingapp.enums.FuelType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class Fuel {
 
-    private FuelType type;
-    private double priceGbp;
-    private double pricePence;
+    private String type;
+    private double latestRecordedPrice;
 }
