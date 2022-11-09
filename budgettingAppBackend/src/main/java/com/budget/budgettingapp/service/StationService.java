@@ -46,6 +46,22 @@ public class StationService {
         }
     }
 
+    public List<Fuel> getAllFuels(JSONObject fuelStation){
+        List<Fuel> fuelList = new ArrayList<>();
+
+        List<JSONObject> fuelPriceList = (List<JSONObject>) fuelStation.get("FuelPriceList");
+        for(JSONObject fuel : fuelPriceList ){
+            String type = (String) fuel.get("FuelType");
+
+            JSONObject latestRecordedPrice = (JSONObject) fuel.get("LatestRecordedPrice");
+            double currentPrice = (Double) latestRecordedPrice.get("InPence");
+
+            Fuel theFuel = new Fuel(type,currentPrice);
+            fuelList.add(theFuel);
+        }
+        return fuelList;
+    }
+
     public List<Station> getFuelStations(String postCode) throws IOException, ParseException {
         JSONObject json = getResults(postCode);
 
@@ -65,18 +81,7 @@ public class StationService {
             Double distanceFromSearchPC = (Double) fuelStation.get("DistanceFromSearchPostcode");
             double latitude = (Double) fuelStation.get("Latitude");
             double longitude = (Double) fuelStation.get("Longitude");
-            List<Fuel> fuelList = new ArrayList<>();
-
-            List<JSONObject> fuelPriceList = (List<JSONObject>) fuelStation.get("FuelPriceList");
-            for(JSONObject fuel : fuelPriceList ){
-                String type = (String) fuel.get("FuelType");
-
-                JSONObject latestRecordedPrice = (JSONObject) fuel.get("LatestRecordedPrice");
-                double currentPrice = (Double) latestRecordedPrice.get("InPence");
-
-                Fuel theFuel = new Fuel(type,currentPrice);
-                fuelList.add(theFuel);
-            }
+            List<Fuel> fuelList = getAllFuels(fuelStation);
 
             Station station = new Station(brand, name, street, town, thePostCode, distanceFromSearchPC, latitude, longitude, fuelList );
             stations.add(station);
