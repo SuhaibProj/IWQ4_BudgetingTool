@@ -90,4 +90,38 @@ public class StationService {
         return stations;
 
     }
+
+    public List<Station> getStationByFuelType(String type, String postCode) throws IOException, ParseException {
+        List<Station> allStations = getFuelStations(postCode);
+        List<Station> allStationsFuelListByFuel = new ArrayList<>();
+
+        for(Station station : allStations){
+            List<Fuel> fuelSold = station.getFuelSold();
+            for(Fuel fuel : fuelSold){
+                if(fuel.getType().equals(type)){
+                    allStationsFuelListByFuel.add(station);
+                }
+                            }
+        }
+        return allStationsFuelListByFuel;
+    }
+
+    public Station getNearestStation(String postCode) throws IOException, ParseException {
+        List<Station> stations = getFuelStations(postCode);
+        Station nearestStation = stations.stream().
+                reduce((a,b) -> a.getDistanceFromSearchPC() < b.getDistanceFromSearchPC() ? a:b).
+                get();
+        return nearestStation;
+    }
+
+    public Station getCheapestStationByFuel(String type, String PostCode) throws IOException, ParseException {
+        List<Station> allStationsListByFuel = getStationByFuelType(type, PostCode);
+        Station cheapestStationByFuel = allStationsListByFuel.stream().
+                reduce((a,b) ->
+                        a.getFuelSold().stream().filter(fuel -> type.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
+                                < b.getFuelSold().stream().filter(fuel -> type.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
+                                ? a:b).
+                get();
+        return cheapestStationByFuel;
+    }
 }
