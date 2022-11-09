@@ -4,6 +4,7 @@ import com.budget.budgettingapp.model.Station;
 import com.budget.budgettingapp.service.StationService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ public class StationController {
     @Autowired
     StationService stationService;
 
-    @GetMapping("/getAllStations")
+    @GetMapping(path = "/getAllStations", produces = {MediaType.APPLICATION_JSON_VALUE})
     public String getAllStations(@RequestBody String postCode) throws IOException, ParseException {
 
         List<Station> returnValue = stationService.getFuelStations(postCode);
@@ -22,7 +23,7 @@ public class StationController {
         return returnValue.toString();
     }
 
-    @GetMapping("/getAllStationsFuelType/{postCode}/{type}")
+    @GetMapping(path = "/getAllStationsFuelType/{postCode}/{type}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String getAllStationsFuelType(@PathVariable String postCode, @PathVariable String type) throws IOException, ParseException {
 
@@ -31,7 +32,7 @@ public class StationController {
         return returnValue.toString();
     }
 
-    @GetMapping("/getNearestStation/{postCode}")
+    @GetMapping(path = "/getNearestStation/{postCode}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String getNearestStation(@PathVariable String postCode) throws IOException, ParseException {
 
@@ -40,7 +41,7 @@ public class StationController {
         return nearestStation.toString();
     }
 
-    @GetMapping("/getCheapestFuelPriceStation/{type}/{postCode}")
+    @GetMapping(path = "/getCheapestFuelPriceStation/{type}/{postCode}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public String getCheapestStationByFuel(@PathVariable String type, @PathVariable String postCode) throws IOException, ParseException {
 
