@@ -9,6 +9,7 @@ import './App.css';
 function App() {
 	const container = useRef();
 	const map = useRef();
+	console.log(x)
 	// centers to london by default
 	const center = transform([0.123, 53], 'EPSG:4326', 'EPSG:3857');
 
