@@ -4,9 +4,13 @@ import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import OSM from 'ol/source/OSM.js';
 import TileLayer from 'ol/layer/Tile.js';
+import { NavBar } from './components/NavBar';
 import './App.css';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+
 
 function App() {
+	
 	const container = useRef();
 	const map = useRef();
 	// centers to london by default
@@ -32,6 +36,7 @@ function App() {
 
 	return (
 		<>
+			<NavBar/>
 			<div ref={container} className='map'></div>
 			<div className='map-controls p-4'>
 				<div className='me-3'>
@@ -40,8 +45,10 @@ function App() {
 							class='form-control shadow border-dark'
 							placeholder='Enter postal code'
 						/>
+						<div class='search'>< SearchRoundedIcon class='searchIcon'/></div>
 					</div>
 				</div>
+
 				<div>
 					<div class='input-group'>
 						<div class='btn-group btn-group-lg bg-white shadow' role='group'>
@@ -51,6 +58,7 @@ function App() {
 							<label class='btn btn-outline-dark'>Petrol</label>
 							<input type='radio' class='btn-check' />
 							<label class='btn btn-outline-dark'>Electric</label>
+							
 						</div>
 					</div>
 				</div>
