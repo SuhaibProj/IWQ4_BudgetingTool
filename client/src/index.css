@@ -11,12 +11,38 @@
 .map {
 	width: 100vw;
 	height: 100vh;
+	top: 60px;
+	cursor: grab;
 }
 
 .navigation {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
-	top: 0;
+	top: 60px;
 	right: 0;
+}
+
+.searchIcon {
+	width: 40px;
+	height: 45px;
+	margin: 1px 0 0 3px;
+	transform: rotateZ(90deg);
+	cursor: pointer;
+}
+
+.search {
+	width: 50px;
+	background-color: white;
+	margin-left: 5px !important;
+	border: 1px solid black;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.carFoodImage {
+	position: absolute;
+	top: 5px;
+	width: 100px;
+	height: 60px;
 }
