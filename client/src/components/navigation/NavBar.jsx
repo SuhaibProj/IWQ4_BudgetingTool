@@ -9,18 +9,6 @@ import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CarFoodLogo from '../../assets/CarFood.png';
 
-let LinkTab = (props) => {
-  return (
-    <Tab
-      component="a"
-      onClick={(event) => {
-        event.preventDefault();
-      }}
-      {...props}
-    />
-  );
-}
-
 export let NavBar = () => {
   const [value, setValue] = React.useState(0);
 
