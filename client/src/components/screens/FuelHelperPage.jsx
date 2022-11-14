@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import OSM from 'ol/source/OSM.js';
@@ -19,13 +19,16 @@ import Stroke from 'ol/style/Stroke';
 
 import pin from '../../assets/pointer.png';
 import flag from '../../assets/flag.png';
+import SearchStations from '../../SearchStation';
 
 export const FuelHelperPage = () => {
+	
 	const mockMarkers = [
 		{ price: 12, location: [0.123, 53.005] },
 		{ price: 13, location: [0.129, 53.004] },
 		{ price: 14, location: [0.11, 53.003] },
 	];
+
 
 	const container = useRef();
 		const map = useRef();
@@ -88,6 +91,7 @@ export const FuelHelperPage = () => {
 				controls: [],
 				target: container.current,
 			});
+			
 		}, [container.current]);
 		
 		return (
