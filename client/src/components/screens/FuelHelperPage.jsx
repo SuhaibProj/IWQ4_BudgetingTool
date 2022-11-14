@@ -1,6 +1,5 @@
 import React from 'react'
 import { useEffect, useRef } from 'react';
-import { transform } from 'ol/proj';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import OSM from 'ol/source/OSM.js';
