@@ -7,15 +7,36 @@ import TileLayer from 'ol/layer/Tile.js';
 import { NavBar } from './components/NavBar';
 import './App.css';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import SearchStations from './SearchStation';
 
 
-function App() {
+
+
+function App(props) {
 	
+	const displayStations = useRef();
+
+async function renderLatLong(postCode){
+	try {
+		var stations = new SearchStations();
+		displayStations.current = await stations.getNearestStation(postCode)
+		console.log(displayStations)
+		
+		return displayStations;
+		
+		}catch (err) {
+			console.log(err);
+		  }
+}
+console.log(displayStations)
+
+
 	const container = useRef();
 	const map = useRef();
 	// centers to london by default
-	const center = transform([0.123, 53], 'EPSG:4326', 'EPSG:3857');
-
+	const center = displayStations.current.latitude == null || displayStations.current.longitude == null ? transform([0.123, 53], 'EPSG:4326', 'EPSG:3857'): transform([displayStations.current.latitude, displayStations.current.longitude], 'EPSG:4326', 'EPSG:3857');
+	//console.log(displayStations.current.latitude)
+	//console.log(displayStations.current.longitude)
 	/*
 	*
 	Render the map
@@ -43,9 +64,13 @@ function App() {
 					<div class='input-group input-group-lg'>
 						<input
 							class='form-control shadow border-dark'
+							id='postCode'
 							placeholder='Enter postal code'
 						/>
-						<div class='search'>< SearchRoundedIcon class='searchIcon'/></div>
+						<div class='search'><button type='button' class='searchIcon' onClick={()=>
+							
+							{ 	renderLatLong(document.getElementById('postCode').value)
+								}} /></div>
 					</div>
 				</div>
 

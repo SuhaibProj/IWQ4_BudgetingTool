@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class StationController {
     @Autowired
     StationService stationService;
 
-    @GetMapping(path = "/getAllStations", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(path = "/getAllStations/{postCode}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public List<Station> getAllStations(@RequestBody String postCode) throws IOException, ParseException {
+    public List<Station> getAllStations(@PathVariable String postCode) throws IOException, ParseException {
 
         List<Station> returnValue = stationService.getFuelStations(postCode);
 

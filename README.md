@@ -4,7 +4,7 @@
 #### Start springboot project from IDE.
 #### Go to http://localhost:8080
 #### Endpoints Are:
-###### /getAllStations
+###### /getAllStations/{postCode}
 ###### /getAllStationsFuelType/{postCode}/{type}
 ###### /getNearestStation/{postCode}
 ###### /getCheapestFuelPriceStation/{type}/{postCode}
