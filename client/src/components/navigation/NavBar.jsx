@@ -7,7 +7,7 @@ import Tab from '@mui/material/Tab';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import CarFoodLogo from '../../assets/CarFood.png';
+import CarFoodLogo from '../../assets/logo.png';
 
 export let NavBar = () => {
 
