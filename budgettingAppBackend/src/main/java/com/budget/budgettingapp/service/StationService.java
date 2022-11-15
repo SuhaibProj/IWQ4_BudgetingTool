@@ -2,6 +2,7 @@ package com.budget.budgettingapp.service;
 
 import com.budget.budgettingapp.model.Fuel;
 import com.budget.budgettingapp.model.Station;
+import org.apache.commons.text.CaseUtils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -20,6 +21,7 @@ public class StationService {
     String url = "https://uk1.ukvehicledata.co.uk/api/datapackage/FuelPriceData?v=2&api_nullitems=1&auth_apikey=38e9ef0c-bf7c-4bac-91df-fce03204897a&key_POSTCODE=";
 
     public JSONObject getResults(String PostCode) throws IOException, ParseException {
+        PostCode = PostCode.toUpperCase().replace(" ", "");
         JSONParser parser = new JSONParser();
         String apiCallUrl = url + PostCode;
         URL object = new URL(apiCallUrl);
@@ -94,6 +96,7 @@ public class StationService {
     public List<Station> getStationByFuelType(String type, String postCode) throws IOException, ParseException {
         List<Station> allStations = getFuelStations(postCode);
         List<Station> allStationsFuelListByFuel = new ArrayList<>();
+        type = CaseUtils.toCamelCase(type, true, ' ');
 
         for(Station station : allStations){
             List<Fuel> fuelSold = station.getFuelSold();
@@ -116,10 +119,12 @@ public class StationService {
 
     public Station getCheapestStationByFuel(String type, String PostCode) throws IOException, ParseException {
         List<Station> allStationsListByFuel = getStationByFuelType(type, PostCode);
+        type = CaseUtils.toCamelCase(type, true, ' ');
+        String finalType = type;
         Station cheapestStationByFuel = allStationsListByFuel.stream().
                 reduce((a,b) ->
-                        a.getFuelSold().stream().filter(fuel -> type.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
-                                < b.getFuelSold().stream().filter(fuel -> type.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
+                        a.getFuelSold().stream().filter(fuel -> finalType.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
+                                < b.getFuelSold().stream().filter(fuel -> finalType.equals(fuel.getType())).findAny().orElse(null).getLatestRecordedPrice()
                                 ? a:b).
                 get();
         return cheapestStationByFuel;
