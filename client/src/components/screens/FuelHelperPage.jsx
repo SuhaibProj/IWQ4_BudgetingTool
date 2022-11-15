@@ -19,7 +19,7 @@ import Stroke from 'ol/style/Stroke';
 
 import pin from '../../assets/pointer.png';
 import flag from '../../assets/flag.png';
-import SearchStations from '../../SearchStation';
+
 
 export const FuelHelperPage = () => {
 	
